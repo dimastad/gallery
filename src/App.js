@@ -19,10 +19,20 @@ function App() {
         localStorage.getItem('images')))
   }, [])
 
+  const handleImageDelete = (e) => {
+    const imgSrc = e.target.src;
+    const _images = images.filter(img => img.url !== imgSrc );
+    setImages(_images);
+    _images.length === 0 && localStorage.clear();
+    localStorage.setItem('images', JSON.stringify(_images));
+  }
+
   return (
     <div className="App">
       <h1>Gallery</h1>
-      <Gallery galleryImages={images}/>
+      <Gallery
+        galleryImages={images}
+        handleImageDelete={handleImageDelete} />
     </div>
   );
 }

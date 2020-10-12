@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Gallery.scss';
 
-const Gallery = ({ galleryImages }) => {
+const Gallery = ({ galleryImages, handleImageDelete }) => {
   const containerRef = useRef(null)
   const [containerWidth, setContainerWidth] = useState(null);
 
@@ -11,7 +11,7 @@ const Gallery = ({ galleryImages }) => {
     }
   },[containerRef])
 
-  const getImageSize = () => {
+  const getResizedImages = () => {
     const imageArr = [];
     let lines = [];
     let imgRatioSum = 0;
@@ -52,7 +52,7 @@ const Gallery = ({ galleryImages }) => {
   return (
     <div className='gallery'>
       <ul className='gallery__list' ref={containerRef} >
-        {getImageSize().map((item, index) => (
+        {getResizedImages().map((item, index) => (
           <li
             className='gallery__item'
             style={{ width: item.width }}
@@ -61,7 +61,9 @@ const Gallery = ({ galleryImages }) => {
               className='gallery__img'
               src={item.url}
               alt=''
-              loading='lazy' />
+              loading='lazy'
+              onClick={handleImageDelete} />
+            <span className="gallery__item-text">click for delete</span>
           </li>
         ))}
       </ul>
