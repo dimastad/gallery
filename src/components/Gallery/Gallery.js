@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+// import Loader from '../Loader/Loader';
 import './Gallery.scss';
 
 const Gallery = ({ galleryImages, handleImageDelete }) => {
@@ -9,6 +10,10 @@ const Gallery = ({ galleryImages, handleImageDelete }) => {
     if(containerRef.current) {
       setContainerWidth(containerRef.current.offsetWidth);
     }
+
+    window.addEventListener('resize', event => {
+      setContainerWidth(containerRef.current.offsetWidth);
+    })
   },[containerRef])
 
   const getResizedImages = () => {
@@ -48,24 +53,26 @@ const Gallery = ({ galleryImages, handleImageDelete }) => {
     });
     return imageArr;
   }
+  
 
   return (
     <div className='gallery'>
       <ul className='gallery__list' ref={containerRef} >
         {getResizedImages().map((item, index) => (
-          <li
-            className='gallery__item'
-            style={{ width: item.width }}
-            key={index}>
-            <img
-              className='gallery__img'
-              src={item.url}
-              alt=''
-              loading='lazy'
-              onClick={handleImageDelete} />
-            <span className="gallery__item-text">click for delete</span>
-          </li>
-        ))}
+            <li
+              className='gallery__item'
+              style={{ width: item.width }}
+              key={index}>
+              <img
+                className='gallery__img'
+                src={item.url}
+                alt=''
+                loading='lazy'
+                onClick={handleImageDelete} />
+              <span className="gallery__item-text">click for delete</span>
+            </li>
+          ))
+        }
       </ul>
     </div>
   );

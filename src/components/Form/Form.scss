@@ -1,15 +1,12 @@
 .form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
   width: 50%;
-  margin: 0 auto;
+  margin: 25px auto;
 
-  & fieldset {
-    grid-column: 1 / -1;
-  }
-
-  &__title {
-    grid-column: 1 / -1;
+  &__preview {
+    position: absolute;
+    top: -9999px;
+    left: -9999px
   }
 }
