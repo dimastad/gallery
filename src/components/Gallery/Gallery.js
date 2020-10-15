@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import Loader from '../Loader/Loader';
 import './Gallery.scss';
 
-const Gallery = ({ galleryImages, handleImageDelete }) => {
+const Gallery = ({
+  galleryImages,
+  handleImageDelete,
+  onFileDragOver,
+  onFileDrop }) => {
+
   const containerRef = useRef(null)
   const [containerWidth, setContainerWidth] = useState(null);
 
@@ -53,11 +57,14 @@ const Gallery = ({ galleryImages, handleImageDelete }) => {
     });
     return imageArr;
   }
-  
 
   return (
     <div className='gallery'>
-      <ul className='gallery__list' ref={containerRef} >
+      <ul
+        className='gallery__list'
+        ref={containerRef}
+        onDragOver={onFileDragOver}
+        onDrop={onFileDrop} >
         {getResizedImages().map((item, index) => (
             <li
               className='gallery__item'

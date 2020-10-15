@@ -52,6 +52,30 @@ function App() {
     setUrl('');
   }
 
+  const onFileDragOver = (e) => e.preventDefault();
+
+  const onFileDrop = (e) => {
+    e.preventDefault();
+    const _images = [...images];
+    const data = [...e.dataTransfer.files][0];
+    let reader = new FileReader();
+    reader.readAsDataURL(data);
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const _img = {
+          width: img.width,
+          height: img.height
+        }
+        _images.push(Object.assign({url: reader.result}, _img))
+        localStorage.setItem('images', JSON.stringify(_images))
+        setImages(_images);
+      };
+      img.src = reader.result;
+      
+    }
+  }
+
   return (
     <div className="App">
       <Form
@@ -66,7 +90,9 @@ function App() {
       <hr/>
       <Gallery
         galleryImages={images}
-        handleImageDelete={handleImageDelete} />
+        handleImageDelete={handleImageDelete}
+        onFileDragOver={onFileDragOver}
+        onFileDrop={onFileDrop} />
     </div>
   );
 }
