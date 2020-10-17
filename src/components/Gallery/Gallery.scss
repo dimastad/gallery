@@ -1,7 +1,7 @@
 .gallery {
   max-width: 860px;
   margin: 0 auto;
-  
+
   &__list {
     display: flex;
     flex-flow: row wrap;
@@ -46,6 +46,22 @@
       & + .gallery__item-text {
         opacity: 1;
         transform: rotateX(0deg);
+      }
+    }
+  }
+}
+
+@media (hover: none) {
+  .gallery {
+    &__img {
+      &:hover {
+        transform: none;
+        filter: none;
+
+        & + .gallery__item-text {
+          opacity: 0;
+          transform: none;
+        }
       }
     }
   }
