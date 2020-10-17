@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Для установки:
+1. git clone <project>
+2. yarn
+3. yarn start
+
 Требования к галерее
 
   • Нужно разместить картинки галереи рядами. Количество рядов не ограничено.
