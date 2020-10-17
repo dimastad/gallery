@@ -71,7 +71,7 @@ const Gallery = ({
               style={{ width: item.width }}
               key={index}>
               <img
-                className='gallery__img'
+                className='gallery__img ph-picture'
                 src={item.url}
                 alt=''
                 loading='lazy'

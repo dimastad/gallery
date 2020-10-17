@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Form from './components/Form/Form';
 import Gallery from './components/Gallery/Gallery';
-// import { galleryImages } from './images/gallery-images.json';
 
 function App() {
   const [url, setUrl] = useState('');
@@ -11,13 +10,23 @@ function App() {
 
   const mockUrl = 'https://run.mocky.io/v3/99f32595-cf85-4340-91fc-a3a7c0d5efb5';
 
-  fetch(mockUrl)
-    .then(response => response.json())
-    .then(json => localStorage.setItem('images' , JSON.stringify(json.galleryImages)))
+  const fetchData = async () => {
+    try {
+      const response = await fetch(mockUrl);
+      const data = await response.json();
+      localStorage.setItem('images' , JSON.stringify(data.galleryImages))
+      setImages(data.galleryImages)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
 
   useEffect(() => {
-    setImages(JSON.parse(localStorage.getItem('images')))
-  }, [])
+    !localStorage.getItem('images') || JSON.parse(localStorage.getItem('images')).length === 0
+    ? fetchData()
+    : setImages(JSON.parse(localStorage.getItem('images')))
+  }, [localStorage.getItem('images')])
 
   const handleImageDelete = (e) => {
     const imgSrc = e.target.src;
@@ -72,7 +81,6 @@ function App() {
         setImages(_images);
       };
       img.src = reader.result;
-      
     }
   }
 
